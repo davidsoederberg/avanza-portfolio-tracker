@@ -1,0 +1,19 @@
+{
+  "name": "avanza-portfolio-tracker",
+  "version": "1.0.0",
+  "description": "Tracking your Avanza portfolio value for real time and future analysis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidsoederberg/avanza-portfolio-tracker.git"
+  },
+  "author": "David Söderberg <david_soderberg@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidsoederberg/avanza-portfolio-tracker/issues"
+  },
+  "homepage": "https://github.com/davidsoederberg/avanza-portfolio-tracker#readme"
+}
