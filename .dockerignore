@@ -1,0 +1,7 @@
+# Ignore everything
+*
+
+# Allow in Docker image
+!index.js
+!lib/**/*.js
+!package*.json

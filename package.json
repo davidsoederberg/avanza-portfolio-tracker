@@ -4,6 +4,8 @@
   "description": "Tracking your Avanza portfolio value for real time and future analysis",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/davidsoederberg/avanza-portfolio-tracker/issues"
   },
-  "homepage": "https://github.com/davidsoederberg/avanza-portfolio-tracker#readme"
+  "homepage": "https://github.com/davidsoederberg/avanza-portfolio-tracker#readme",
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  },
+  "dependencies": {
+    "avanza": "^2.0.0"
+  }
 }
