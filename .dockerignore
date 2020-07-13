@@ -3,5 +3,5 @@
 
 # Allow in Docker image
 !index.js
-!lib/**/*.js
+!lib
 !package*.json

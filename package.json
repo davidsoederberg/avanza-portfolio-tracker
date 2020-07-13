@@ -24,6 +24,9 @@
     "eslint-plugin-import": "^2.22.0"
   },
   "dependencies": {
-    "avanza": "^2.0.0"
+    "avanza": "^2.0.0",
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.9.23",
+    "node-cron": "^2.0.3"
   }
 }
