@@ -16,5 +16,9 @@ services:
         image: mongo
         networks:
             - network
+        volumes:
+            - mongodb_data_container:/data/db
 networks:
     network:
+volumes:
+    mongodb_data_container:
