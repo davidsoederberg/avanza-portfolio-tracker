@@ -20,14 +20,16 @@ mongoose.connect(DB_URL,
     avanza.authenticate(credentials)
       .then(() => {
         console.log('Authenticated to Avanza...');
-        pC.check()
+        let waitTime = 0;
+        pC.portfolioExist()
           .then((res) => {
             if (!res) {
+              waitTime = 3000;
               console.log('Init portfolio...');
               pC.init();
             }
             console.log('Service starting...');
-            setTimeout(() => { service.start(avanza); }, 3000);
+            setTimeout(() => { service.start(avanza); }, waitTime);
           })
           .catch((err) => {
             console.log(err);
