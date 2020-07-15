@@ -1,7 +1,8 @@
 version: "3.8"
 services:
 
-    app:
+    service_worker:
+        container_name: tracker
         build: .
         networks:
             - network
