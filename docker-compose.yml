@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+
+    service_worker:
+        container_name: tracker
+        build: .
+        networks:
+            - network
+        depends_on:
+            - db
+        environment:
+            WAIT_HOSTS: mongo:27017
+        env_file: 
+            - .env
+    db:
+        container_name: mongo
+        image: mongo
+        networks:
+            - network
+        volumes:
+            - mongodb_data_container:/data/db
+networks:
+    network:
+volumes:
+    mongodb_data_container:
