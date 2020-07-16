@@ -1,4 +1,4 @@
-name: Docker buildx with push to DockerHub
+name: Docker buildx with push to Docker Hub
 on:
   pull_request:
     branches: master
@@ -35,4 +35,9 @@ jobs:
         name: Build and Push to DockerHub
         if: success() && github.event_name != 'pull_request'
         run: |
-          docker buildx build --output "type=image,push=true" --platform linux/amd64,linux/arm/v7,linux/arm64 .
+          docker buildx build --output "type=image,push=true" --platform linux/amd64,linux/arm/v7,linux/arm64 davidsoederberg/avanza-portfolio-tracker .
+      -
+        name: Clear
+        if: always() && github.event_name != 'pull_request'
+        run: |
+          rm -f ${HOME}/runner/.docker/config.json
