@@ -2,14 +2,12 @@ version: "3.8"
 services:
 
     service_worker:
+        image: davidsoederberg/avanza-portfolio-tracker
         container_name: tracker
-        build: .
         networks:
             - network
         depends_on:
             - db
-        environment:
-            WAIT_HOSTS: mongo:27017
         env_file: 
             - .env
     db:
