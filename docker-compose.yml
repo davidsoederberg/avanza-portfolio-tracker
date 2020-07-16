@@ -8,8 +8,6 @@ services:
             - network
         depends_on:
             - db
-        environment:
-            WAIT_HOSTS: mongo:27017
         env_file: 
             - .env
     db:
