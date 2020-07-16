@@ -1,5 +1,4 @@
-name: Docker build for multiarch
-
+name: Docker buildx with push to DockerHub
 on:
   pull_request:
     branches: master
