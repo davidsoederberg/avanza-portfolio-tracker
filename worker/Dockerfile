@@ -1,6 +1,6 @@
 FROM node:12-alpine
 
-WORKDIR /usr/src/avanza-portfolio-tracker
+WORKDIR /usr/src/avanza-portfolio-tracker/worker
 
 COPY package*.json ./
 
