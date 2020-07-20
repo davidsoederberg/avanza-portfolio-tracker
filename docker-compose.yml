@@ -2,8 +2,8 @@ version: "3.8"
 services:
 
     service_worker:
-        image: davidsoederberg/avanza-portfolio-tracker
-        container_name: tracker
+        image: davidsoederberg/avanza-portfolio-tracker:worker
+        container_name: worker
         networks:
             - network
         depends_on:
