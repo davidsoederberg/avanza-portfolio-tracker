@@ -10,6 +10,15 @@ services:
             - db
         env_file: 
             - .env
+    service_verify:
+        image: davidsoederberg/avanza-portfolio-tracker:verify
+        container_name: verify
+        networks:
+            - network
+        depends_on:
+            - db
+        env_file: 
+            - .env
     db:
         container_name: mongo
         image: mongo

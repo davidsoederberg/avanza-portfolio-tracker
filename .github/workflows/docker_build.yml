@@ -23,6 +23,7 @@ jobs:
         name: Run Buildx
         run: |
           docker buildx build --output "type=image,push=false" --platform linux/amd64,linux/arm/v7,linux/arm64 ./worker/
+          docker buildx build --output "type=image,push=false" --platform linux/amd64,linux/arm/v7,linux/arm64 ./verify/
       -
         name: Docker Login
         if: success() && github.event_name != 'pull_request'
@@ -36,6 +37,7 @@ jobs:
         if: success() && github.event_name != 'pull_request'
         run: |
           docker buildx build -t davidsoederberg/avanza-portfolio-tracker:worker --output "type=image,push=true" --platform linux/amd64,linux/arm/v7,linux/arm64 ./worker/
+          docker buildx build -t davidsoederberg/avanza-portfolio-tracker:verify --output "type=image,push=true" --platform linux/amd64,linux/arm/v7,linux/arm64 ./verify/
       -
         name: Clear
         if: always() && github.event_name != 'pull_request'
