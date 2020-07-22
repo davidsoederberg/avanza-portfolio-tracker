@@ -1,4 +1,4 @@
-const CronJob = require('cron').CronJob;
+const { CronJob } = require('cron');
 const { DateTime } = require('luxon');
 
 const Portfolio = require('./api/portfolioController');

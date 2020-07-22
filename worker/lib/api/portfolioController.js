@@ -49,7 +49,6 @@ exports.portfolioExist = () => new Promise((resolve, reject) => {
   });
 });
 
-
 function isSameDay(d1, d2) {
   return d1.hasSame(d2, 'day');
 }
@@ -64,14 +63,15 @@ exports.getCurrentIntradayId = () => new Promise((resolve, reject) => {
     if (err) reject(err);
     Portfolio.populate(portfolio, [{ path: 'currentIntraday', model: 'Intraday' }], (err3, populated) => {
       if (err3) reject(err3);
-      if (portfolio.currentIntraday === undefined || isNewTradingDay(currentDate, DateTime.fromISO(populated.currentIntraday.date))) {
+      if (portfolio.currentIntraday === undefined
+      || isNewTradingDay(currentDate, DateTime.fromISO(populated.currentIntraday.date))) {
         IntradayController.init()
-        .then((doc) => {
-          resolve(doc._id);
-        })
-        .catch((err2) => {
-          reject(err2);
-        });
+          .then((doc) => {
+            resolve(doc._id);
+          })
+          .catch((err2) => {
+            reject(err2);
+          });
       } else {
         resolve(populated.currentIntraday._id);
       }
@@ -83,8 +83,10 @@ exports.getCurrentIntradayId = () => new Promise((resolve, reject) => {
 //   Portfolio.find({}, (err, docs) => {
 //     if (err) throw err;
 //     const portfolio = docs[0];
-//     Portfolio.populate(portfolio, [{ path: 'currentIntraday', model: 'Intraday' }, { path: 'intraday', model: 'Intraday' }], (err, intradayLoad) => {
-//       Portfolio.populate(intradayLoad, [{ path: 'intraday.capital', model: 'Capital' }, { path: 'currentIntraday.capital', model: 'Capital' }], (err, capitalLoad) => {
+//     Portfolio.populate(portfolio,[{ path: 'currentIntraday', model: 'Intraday' },
+// { path: 'intraday', model: 'Intraday' }], (err, intradayLoad) => {
+//       Portfolio.populate(intradayLoad, [{ path: 'intraday.capital', model: 'Capital' },
+// { path: 'currentIntraday.capital', model: 'Capital' }], (err, capitalLoad) => {
 //         res.send(capitalLoad);
 //       });
 //     });

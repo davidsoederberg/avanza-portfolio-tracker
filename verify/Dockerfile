@@ -1,0 +1,11 @@
+FROM node:12-alpine
+
+WORKDIR /usr/src/avanza-portfolio-tracker/verify
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+CMD node index.js
