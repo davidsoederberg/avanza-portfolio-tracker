@@ -8,4 +8,5 @@ RUN npm install
 
 COPY . .
 
-CMD node index.js
+# Sleep to let mongodb to boot up
+CMD sleep 5 && node index.js
