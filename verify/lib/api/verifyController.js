@@ -27,9 +27,17 @@ exports.init = () => {
   newVerify.save();
 };
 
+exports.verifyExist = () => new Promise((resolve, reject) => {
+  Verify.find({}, (err, docs) => {
+    if (err) reject(err);
+    resolve(docs.length === 1);
+  });
+});
+
 function isSameDay(d1, d2) {
   return d1.hasSame(d2, 'day');
 }
+
 function isNewTradingDay(d1, d2) {
   return !isSameDay(d1, d2)
       && d1.weekday > 0 && d1.weekday < 6;
