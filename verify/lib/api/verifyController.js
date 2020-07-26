@@ -48,7 +48,7 @@ exports.checkOrInitNewDay = () => {
   Verify.findOne({}, (err, verify) => {
     if (err) throw err;
     if (verify.currentDay === undefined
-    || isNewTradingDay(currentDate, DateTime.fromISO(verify.currentDate.date))) {
+    || isNewTradingDay(currentDate, DateTime.fromISO(verify.currentDay.date))) {
       if (verify.currentDay !== undefined) verify.days.push(verify.currentDay);
       verify.currentDay.date = currentDate.toISO();
       verify.currentDay.openSet = false;
