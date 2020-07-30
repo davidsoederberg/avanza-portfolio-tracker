@@ -4,21 +4,49 @@ const Verify = require('../models/verify');
 
 exports.verifyDataPoint = () => {
   const currentMinute = DateTime.local().setZone('Europe/Stockholm');
-  mongoose.connection.collection('Portfolio').findOne({}).toArray((err, doc) => {
-    if (err) throw err;
-    const { currentIntraday } = doc;
-    mongoose.connection.collection('Intraday').findOne({ _id: currentIntraday._id })
-      .then((err2, intraday) => {
-        if (err2) throw err2;
-        if (!DateTime.fromISO(intraday.date).hasSame(currentMinute, 'minute')) {
+  console.log(`Verify data point : ${currentMinute.toISODate()} - ${currentMinute.toISOTime()}`);
+  mongoose.connection.collection('Portfolio').findOne({})
+    .then((err, doc) => {
+      if (err) throw err;
+      const { currentIntraday } = doc;
+      mongoose.connection.collection('Intraday').findOne({ _id: currentIntraday._id })
+        .populate('capital')
+        .then((err2, intraday) => {
+          if (err2) throw err2;
+          if (!DateTime.fromISO(intraday.capital[intraday.capital.length - 1].date).hasSame(currentMinute, 'minute')) {
+            Verify.findOne({}, (err3, verify) => {
+              if (err3) throw err3;
+              console.log('Data point missed.');
+              verify.currentDay.missedDataPoints += 1;
+              verify.save();
+            });
+          } else {
+            console.log('Data point verified.');
+          }
+        });
+    });
+};
+
+exports.verifyEndDay = () => {
+  this.verifyDataPoint();
+  mongoose.connection.collection('Portfolio').findOne({})
+    .then((err, doc) => {
+      if (err) throw err;
+      const { currentIntraday } = doc;
+      mongoose.connection.collection('Intraday').findOne({ _id: currentIntraday._id })
+        .then((err2, intraday) => {
+          if (err2) throw err2;
+          const hasClose = intraday.close >= 0;
+          const hasOpen = intraday.open >= 0;
           Verify.findOne({}, (err3, verify) => {
             if (err3) throw err3;
-            verify.currentDay.missedDataPoints += 1;
+            console.log('Close and open verifed');
+            verify.currentDay.openSet = hasOpen;
+            verify.currentDay.closeSet = hasClose;
             verify.save();
           });
-        }
-      });
-  });
+        });
+    });
 };
 
 exports.init = () => {
@@ -49,6 +77,7 @@ exports.checkOrInitNewDay = () => {
     if (err) throw err;
     if (verify.currentDay === undefined
     || isNewTradingDay(currentDate, DateTime.fromISO(verify.currentDay.date))) {
+      console.log('New tradingday');
       if (verify.currentDay !== undefined) verify.days.push(verify.currentDay);
       verify.currentDay.date = currentDate.toISO();
       verify.currentDay.openSet = false;
