@@ -14,7 +14,7 @@ exports.start = () => {
   // ENDING HOUR
   new CronJob('30 0-30 17 * * 1-5', () => vC.verifyDataPoint(), null, true, 'Europe/Stockholm');
   // LAST UPDATE
-  new CronJob('30 0 22 * * 1-5', () => vC., null, true, 'Europe/Stockholm');
+  new CronJob('30 0 22 * * 1-5', () => vC.verifyEndDay(), null, true, 'Europe/Stockholm');
   // INIT NEW INTRADAY
   new CronJob('30 0 6 * * 1-5', () => vC.checkOrInitNewDay(), null, true, 'Europe/Stockholm');
 };
